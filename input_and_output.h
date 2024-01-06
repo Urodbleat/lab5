@@ -1,6 +1,8 @@
 #ifndef LAB5_2_INPUT_AND_OUTPUT_H
 #define LAB5_2_INPUT_AND_OUTPUT_H
 #define MAX_ABONENTS 1000
+#include <stddef.h>
+#include "comps.h"
 void printAbonents(struct Abonent *arr, size_t len);
 void saveAbonentsToFile(struct Abonent *arr, size_t len, const char *filename);
 void addAbonentFromKeyboard(struct Abonent *arr, size_t *len);
