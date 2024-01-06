@@ -1,7 +1,4 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
 #include "comps.h"
 void replacement(void *a, void *b, size_t len){
     char *one = a,*two = b,temp;
