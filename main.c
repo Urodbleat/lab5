@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stddef.h>
 #include <time.h>
 #include "comps.h"
 #include "input_and_output.h"
 #include "sortings.h"
+
+#define RED_TEXT "\033[1;31m"
+#define GREEN_TEXT "\033[1;32m"
+#define RESET_TEXT "\033[0m"
 
 char* generate(size_t length) {
     const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -22,26 +25,13 @@ char* generate(size_t length) {
 
 void Random(struct Abonent* abonent,int len) {
     abonent->FIO = generate(len);
-    snprintf(abonent->phoneNumber, sizeof(abonent->phoneNumber), "%010d", rand() % 10000000000);
+    snprintf(abonent->phoneNumber, sizeof(abonent->phoneNumber), "%010d", rand() % 1000000000);
     abonent->lastCallTime = rand();
 }
 
-void hope(struct Abonent *clean) {
-    if (clean->FIO != NULL) {
-        free(clean->FIO);
-    }
-    if (clean->phoneNumber != NULL) {
-        free(clean->phoneNumber);
-    }
-    if ((void *) clean->lastCallTime != NULL) {
-        free((void *)clean->lastCallTime);
-    }
-}
-
-
 
 int main() {
-    int timelen,maxabonents;
+    int timelen,maxabonents, fakeend = 0;
     clock_t start,end;
     struct Abonent arr[MAX_ABONENTS];
     size_t len = 0;
@@ -358,28 +348,31 @@ int main() {
             case 6:
                 printf("Выберите длину строки ФИО(максимум 5000000):");
                 scanf("%d",&timelen);
-                if(timelen > 5000000){
+                if(timelen > 500000000){
                     printf("Лимит превышен");
                     break;
                 }
                 printf("Выберите число абонентов(максимум 100)");
                 scanf("%d",&maxabonents);
-                if(maxabonents > 100){
+                if(maxabonents > 1000000000){
                     printf("Лимит превышен");
                     break;
                 }
                 start = clock();
                 for (size_t i = 0; i < maxabonents; i++) {
+                    fakeend += 1;
+                    if(fakeend > 1000){
+                        printf(RED_TEXT "Опасность расплавления реактора!!!аварийная преостановка тестирования!!!\n" RESET_TEXT);
+                        break;
+                    }
                     Random(&arr[i],timelen);
                 }
-
+                fakeend = 0;
                 end = clock();
                 double time = ((double) (end - start)) / CLOCKS_PER_SEC;
-
-                printf("Таймирование сортировки завершено. Время заполнения: %f сек.\n", time);
+                printf(GREEN_TEXT"Таймирование сортировки завершено. Время заполнения: %f сек.\n" RESET_TEXT, time);
                 break;
             case 0:
-                hope(&arr[0]);
                 printf("Программа завершена.\n");
                 break;
             default:
