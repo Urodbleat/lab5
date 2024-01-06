@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <ctype.h>
 #include "comps.h"
-
-
 int comparelastCallTimeDown(const void *a, const void *b) {
     return ((struct Abonent*)a)->lastCallTime - ((struct Abonent*)b)->lastCallTime;
 }
